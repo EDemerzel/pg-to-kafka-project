@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "pg-to-kafka.fullname" . }}-netpol
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ include "pg-to-kafka.name" . }}
+  policyTypes: ["Ingress","Egress"]
+  ingress:
+    - from: []
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    - to: []
+      ports:
+        - protocol: TCP
+          port: 5432
+        - protocol: TCP
+          port: 9092

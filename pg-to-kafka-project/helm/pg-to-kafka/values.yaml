@@ -1,0 +1,22 @@
+replicaCount: 2
+image:
+  repository: pg-to-kafka
+  tag: dev
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 8080
+resources:
+  requests: { cpu: 100m, memory: 128Mi }
+  limits: { cpu: 500m, memory: 256Mi }
+env:
+  PG_CHANNEL: kafka_channel
+  KAFKA_TOPIC: poc_topic
+  KAFKA_DLQ_TOPIC: poc_topic_dlq
+  KAFKA_BOOTSTRAP: dev-kafka-kafka-bootstrap.kafka.svc.cluster.local:9092
+  PG_CONN_STR: postgresql://devuser:devpass@pg-dev.data-integration.svc.cluster.local:5432/devdb
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  cpuUtilization: 60

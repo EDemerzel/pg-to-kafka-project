@@ -1,0 +1,4 @@
+psycopg2-binary==2.9.10
+types-psycopg2==2.9.21
+confluent-kafka==2.6.0
+types-confluent-kafka==1.3.6

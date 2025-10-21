@@ -1,0 +1,18 @@
+Thank you for installing {{ .Chart.Name }}!
+
+Your listener service has been deployed.
+
+Postgres connection string:
+  {{ .Values.env.PG_CONN_STR }}
+
+Kafka bootstrap:
+  {{ .Values.env.KAFKA_BOOTSTRAP }}
+
+To test end-to-end:
+  1. Insert into Postgres:
+     INSERT INTO poc_table(status, amount) VALUES ('NEW', 42.00);
+
+  2. Consume from Kafka:
+     kubectl -n kafka run kafka-consumer -ti --image=confluentinc/cp-kafka:7.5.0 --restart=Never -- \
+       kafka-console-consumer --bootstrap-server {{ .Values.env.KAFKA_BOOTSTRAP }} \
+       --topic {{ .Values.env.KAFKA_TOPIC }} --from-beginning
