@@ -30,6 +30,7 @@
         "strimzi",
         "Strimzi",
         "STRIMZI",
-        "usermod"
+        "usermod",
+        "venv"
     ]
 }
